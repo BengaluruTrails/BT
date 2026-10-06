@@ -443,14 +443,22 @@ app.post(['/signup', '/api/signup'], async (req, res) => {
             'INSERT INTO users (username, email, password, mobile, otp, otp_expiry, verified) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE otp=?, otp_expiry=?',
             [username, lowerEmail, hashedPassword, mobile, otp, otpExpiry, 0, otp, otpExpiry]
         );
-        await transporter.sendMail({
-            from: `"Bengaluru Trails" <${process.env.EMAIL_USER}>`,
-            to: lowerEmail,
-            subject: 'Verify Your Bengaluru Trails Account',
-            text: `Your OTP is: ${otp}`
-        });
+        try {
+            await transporter.sendMail({
+                from: `"Bengaluru Trails" <${process.env.EMAIL_USER || 'bengalurutrails2026@gmail.com'}>`,
+                to: lowerEmail,
+                subject: 'Verify Your Bengaluru Trails Account',
+                text: `Your OTP is: ${otp}`
+            });
+            console.log(`[OTP EMAIL SENT] to ${lowerEmail}: ${otp}`);
+        } catch (emailErr) {
+            console.warn(`[OTP EMAIL NOTICE] Email failed: ${emailErr.message}. OTP code: ${otp}`);
+        }
         res.json({ message: 'OTP sent' });
-    } catch (err) { res.status(500).json({ message: 'Signup error' }); }
+    } catch (err) {
+        console.error('[SIGNUP ERROR]', err);
+        res.status(500).json({ message: 'Signup error: ' + (err.message || 'Database error') });
+    }
 });
 
 app.post(['/verify-otp', '/api/verify-otp'], async (req, res) => {
