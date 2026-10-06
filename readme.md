@@ -121,7 +121,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📧 Contact
 For any inquiries or feedback, please reach out to:
 - **Project Lead:** Anil
-- **Email:** bengalurutrails@gmail.com
+- **Email:** bengalurutrails2026@gmail.com
 
 ---
 *Developed with ❤️ for the trekking community.*

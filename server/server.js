@@ -242,7 +242,7 @@ async function sendLeadEmail(lead) {
             <p style="font-size: 11px; color: #64748b; text-align: center;">This lead has been saved to your Admin Dashboard.</p>
         </div>`;
 
-        const recipients = ['bengalurutrails@gmail.com'].join(',');
+        const recipients = ['bengalurutrails2026@gmail.com'].join(',');
 
         await transporter.sendMail({
             from: `"Bengaluru Trails Leads" <${process.env.EMAIL_USER}>`,
@@ -601,7 +601,7 @@ app.post(['/subscribe', '/api/subscribe'], async (req, res) => {
 app.post(['/admin/login', '/api/admin/login'], async (req, res) => {
     const { email, password } = req.body;
     const cleanEmail = email ? email.trim().toLowerCase() : '';
-    if ((cleanEmail === 'bengalurutrails@gmail.com' || cleanEmail === 'admin@bengalurutrails.in') && password === 'Asdf@2003') return res.json({ message: 'Admin login' });
+    if ((cleanEmail === 'bengalurutrails2026@gmail.com' || cleanEmail === 'admin@bengalurutrails.in') && password === 'Asdf@2003') return res.json({ message: 'Admin login' });
     res.status(401).json({ message: 'Unauthorized' });
 });
 

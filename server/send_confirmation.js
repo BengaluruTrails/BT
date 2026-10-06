@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.EMAIL_USER || 'bengalurutrails@gmail.com',
+    user: process.env.EMAIL_USER || 'bengalurutrails2026@gmail.com',
     pass: process.env.EMAIL_PASS
   },
   tls: {
@@ -70,7 +70,7 @@ async function sendBookingConfirmation({
 
   console.log(`Sending confirmation email to: ${toEmail}...`);
   const info = await transporter.sendMail({
-    from: `"Bengaluru Trails" <${process.env.EMAIL_USER || 'bengalurutrails@gmail.com'}>`,
+    from: `"Bengaluru Trails" <${process.env.EMAIL_USER || 'bengalurutrails2026@gmail.com'}>`,
     to: toEmail,
     subject: `Booking Confirmed: ${trekName} - Bengaluru Trails`,
     html

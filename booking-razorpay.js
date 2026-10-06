@@ -517,7 +517,7 @@ const BookingEngine = (() => {
 ═══════════════════════════════════════
   Thank you for choosing BENGALURU TRAILS!
   ${isFullPay ? 'Your booking is fully paid.' : 'Note: Settle balance on departure day.'}
-  For support: bengalurutrails@gmail.com
+  For support: bengalurutrails2026@gmail.com
 ═══════════════════════════════════════
     `.trim();
 
