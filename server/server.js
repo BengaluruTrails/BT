@@ -242,10 +242,10 @@ async function sendLeadEmail(lead) {
             <p style="font-size: 11px; color: #64748b; text-align: center;">This lead has been saved to your Admin Dashboard.</p>
         </div>`;
 
-        const recipients = ['hikershorizon@gmail.com', 'venturesven@gmail.com'].join(',');
+        const recipients = ['bengalurutrails@gmail.com'].join(',');
 
         await transporter.sendMail({
-            from: `"Hikers Horizon Leads" <${process.env.EMAIL_USER}>`,
+            from: `"Bengaluru Trails Leads" <${process.env.EMAIL_USER}>`,
             to: recipients,
             subject: `⚠️ Lead Captured: ${lead.fullName || 'Anonymous'} - ${lead.trekName || 'Trek'}`,
             html: emailHtml
@@ -391,7 +391,7 @@ app.post(['/verify-payment', '/api/verify-payment'], async (req, res) => {
             // Send CONFIRMATION EMAIL
             const emailHtml = paymentMode === 'full' ? `
             <div style="font-family: sans-serif; padding: 20px; background: #0f172a; color: white; border-radius: 10px;">
-                <h2 style="color: #FFD700;">HIKERS HORIZON — BOOKING CONFIRMED</h2>
+                <h2 style="color: #FFD700;">BENGALURU TRAILS - BOOKING CONFIRMED</h2>
                 <p>Hi ${bookingData.fullName}, your booking for <b>${bookingData.trekName}</b> is successful! We have received your full payment.</p>
                 <p><b>Date:</b> ${new Date(bookingData.bookingDate).toDateString()}</p>
                 <p><b>Participants:</b> ${bookingData.participants}</p>
@@ -402,7 +402,7 @@ app.post(['/verify-payment', '/api/verify-payment'], async (req, res) => {
                 <p style="font-size: 12px; color: #94a3b8;">Payment ID: ${razorpay_payment_id}</p>
             </div>` : `
             <div style="font-family: sans-serif; padding: 20px; background: #0f172a; color: white; border-radius: 10px;">
-                <h2 style="color: #FFD700;">HIKERS HORIZON — BOOKING CONFIRMED (30% ADVANCE PAID)</h2>
+                <h2 style="color: #FFD700;">BENGALURU TRAILS - BOOKING CONFIRMED (30% ADVANCE PAID)</h2>
                 <p>Hi ${bookingData.fullName}, your booking for <b>${bookingData.trekName}</b> is successful with a 30% advance payment!</p>
                 <p><b>Date:</b> ${new Date(bookingData.bookingDate).toDateString()}</p>
                 <p><b>Participants:</b> ${bookingData.participants}</p>
@@ -414,7 +414,7 @@ app.post(['/verify-payment', '/api/verify-payment'], async (req, res) => {
             </div>`;
 
             await transporter.sendMail({
-                from: `"Hikers Horizon" <${process.env.EMAIL_USER}>`,
+                from: `"Bengaluru Trails" <${process.env.EMAIL_USER}>`,
                 to: normalizedEmail,
                 subject: `Expedition Confirmed! — ${bookingData.trekName}`,
                 html: emailHtml
@@ -444,9 +444,9 @@ app.post(['/signup', '/api/signup'], async (req, res) => {
             [username, lowerEmail, hashedPassword, mobile, otp, otpExpiry, 0, otp, otpExpiry]
         );
         await transporter.sendMail({
-            from: `"Hikers Horizon" <${process.env.EMAIL_USER}>`,
+            from: `"Bengaluru Trails" <${process.env.EMAIL_USER}>`,
             to: lowerEmail,
-            subject: 'Verify Your Hikers Horizon Account',
+            subject: 'Verify Your Bengaluru Trails Account',
             text: `Your OTP is: ${otp}`
         });
         res.json({ message: 'OTP sent' });
@@ -601,7 +601,7 @@ app.post(['/subscribe', '/api/subscribe'], async (req, res) => {
 app.post(['/admin/login', '/api/admin/login'], async (req, res) => {
     const { email, password } = req.body;
     const cleanEmail = email ? email.trim().toLowerCase() : '';
-    if ((cleanEmail === 'hikershorizon@gmail.com' || cleanEmail === 'venturesven@gmail.com') && password === 'Asdf@2003') return res.json({ message: 'Admin login' });
+    if ((cleanEmail === 'bengalurutrails@gmail.com' || cleanEmail === 'admin@bengalurutrails.in') && password === 'Asdf@2003') return res.json({ message: 'Admin login' });
     res.status(401).json({ message: 'Unauthorized' });
 });
 
@@ -799,7 +799,7 @@ app.get('/sitemap.xml', (req, res, next) => {
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://${domain}/img/gokarna1.jpg</image:loc>
-      <image:title>Gokarna beach trek - Hikers Horizon</image:title>
+      <image:title>Gokarna beach trek - Bengaluru Trails</image:title>
       <image:caption>Trekkers walking on Om Beach during Gokarna coastal trail from Bangalore</image:caption>
     </image:image>
     <image:image>
@@ -815,7 +815,7 @@ app.get('/sitemap.xml', (req, res, next) => {
     <image:image>
       <image:loc>https://${domain}/img/gokarna4.jpg</image:loc>
       <image:title>Gokarna beach camping and trek group</image:title>
-      <image:caption>Hikers Horizon Gokarna beach camping and trek group from Bangalore</image:caption>
+      <image:caption>Bengaluru Trails Gokarna beach camping and trek group from Bangalore</image:caption>
     </image:image>
   </url>
   <url>
