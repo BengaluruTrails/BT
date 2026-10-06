@@ -744,7 +744,7 @@ main {
     }
 
     function loadStats() {
-      fetch('/admin/stats')
+      fetch('/api/admin/stats')
         .then(res => res.json())
         .then(data => {
           const statsValues = document.querySelectorAll('.stat-card .stat-value');
@@ -765,7 +765,7 @@ main {
 
     function loadUsers() {
       const tbody = document.getElementById('usersTableBody');
-      fetch('/admin/users')
+      fetch('/api/admin/users')
         .then(res => {
           if (!res.ok) throw new Error('Failed to load users');
           return res.json();
@@ -872,7 +872,7 @@ main {
 
     function loadBookings() {
       const tbody = document.getElementById('bookingsTableBody');
-      fetch('/admin/bookings')
+      fetch('/api/admin/bookings')
         .then(res => {
           if (!res.ok) throw new Error('Failed to load bookings');
           return res.json();
@@ -912,7 +912,7 @@ main {
 
     function loadLeads() {
       const tbody = document.getElementById('leadsTableBody');
-      fetch('/admin/leads')
+      fetch('/api/admin/leads')
         .then(res => {
           if (!res.ok) throw new Error('Failed to load leads');
           return res.json();
@@ -951,7 +951,7 @@ main {
 
     function loadQueries() {
       const tbody = document.getElementById('queriesTableBody');
-      fetch('/admin/queries')
+      fetch('/api/admin/queries')
         .then(res => {
           if (!res.ok) throw new Error('Failed to load queries');
           return res.json();
@@ -1009,7 +1009,7 @@ main {
       }
 
       try {
-        const response = await fetch(`/admin/users/${userToDelete}`, {
+        const response = await fetch(`/api/admin/users/${userToDelete}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ adminPassword: password })

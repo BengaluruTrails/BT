@@ -571,7 +571,7 @@
       if (refreshIcon) refreshIcon.style.animation = 'spin 1s infinite linear';
       
       try {
-        const res = await fetch('/admin/bot/status');
+        const res = await fetch('/api/admin/bot/status');
         const data = await res.json();
         
         const badgeContainer = document.getElementById('status-badge-container');
@@ -658,7 +658,7 @@
 
     async function fetchLogs() {
       try {
-        const res = await fetch('/admin/bot/logs');
+        const res = await fetch('/api/admin/bot/logs');
         if (!res.ok) return;
         const logs = await res.json();
         
@@ -696,7 +696,7 @@
 
     async function loadBlacklist() {
       try {
-        const res = await fetch('/admin/bot/blacklist');
+        const res = await fetch('/api/admin/bot/blacklist');
         if (!res.ok) throw new Error();
         const list = await res.json();
         
@@ -725,7 +725,7 @@
 
     async function loadCustomers() {
       try {
-        const res = await fetch('/admin/bot/customers');
+        const res = await fetch('/api/admin/bot/customers');
         if (!res.ok) throw new Error();
         const list = await res.json();
         
@@ -735,7 +735,7 @@
           return;
         }
 
-        const blacklistRes = await fetch('/admin/bot/blacklist');
+        const blacklistRes = await fetch('/api/admin/bot/blacklist');
         const blacklist = blacklistRes.ok ? await blacklistRes.json() : [];
         const blacklistedSet = new Set(blacklist.map(n => n.replace('@c.us', '')));
 
@@ -770,7 +770,7 @@
       const number = document.getElementById('blacklistNumber').value.trim();
       
       try {
-        const res = await fetch('/admin/bot/blacklist', {
+        const res = await fetch('/api/admin/bot/blacklist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ number })
@@ -792,7 +792,7 @@
     async function unblockNumber(number) {
       if (!confirm(`Are you sure you want to unblock ${number}?`)) return;
       try {
-        const res = await fetch(`/admin/bot/blacklist/${number}`, {
+        const res = await fetch(`/api/admin/bot/blacklist/${number}`, {
           method: 'DELETE'
         });
         if (res.ok) {
@@ -810,7 +810,7 @@
     async function blockNumberDirect(number) {
       if (!confirm(`Are you sure you want to block ${number}?`)) return;
       try {
-        const res = await fetch('/admin/bot/blacklist', {
+        const res = await fetch('/api/admin/bot/blacklist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ number })
@@ -841,7 +841,7 @@
       btn.textContent = '⏳ Dispatching Broadcast...';
 
       try {
-        const res = await fetch('/admin/bot/broadcast', {
+        const res = await fetch('/api/admin/bot/broadcast', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message })
