@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://bengalurutrails.in/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/hero-mountain.png</image:loc>
+      <image:title>BENGALURU TRAILS - Mountain Trekking from Bangalore</image:title>
+    </image:image>
+  </url>
+
+  <!-- ====== SUNRISE TREKS ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Skandagiri-sunrise-trek-from-bangalore/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Skandagiri.jpg</image:loc>
+      <image:title>Skandagiri Sunrise Trek from Bangalore</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Nandihills-sunrise-trek/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Uttaribetta-sunrise-trek/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Savandurga-sunrise-trek/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Anthargange-trek/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Makalidurga-sunrise-trek/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Sunrise/Kuntibetta-sunrise-trek/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ====== TWO DAYS TREKS ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/Kuduremukha/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/Netravathi/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/Kodachadri/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/Tadiandamol/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/Kumaraparvatha/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Twodays/Gokarna/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ====== BACKPACKING TRIPS ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Wayanad/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Hampi/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Chikmagaluru/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Coorg2days/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Coorg3days/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Kodaikanal/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Backpacking/Munnar/</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/munnar.png</image:loc>
+      <image:title>Munnar Tea Gardens</image:title>
+    </image:image>
+  </url>
+
+  <!-- ====== CORPORATE ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/Corporate/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ====== ABOUT / CONTACT ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/About/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Contact/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ====== BLOG ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/Blog/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Top-5-Night-Treks-Near-Bangalore/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/skandagiri1.jpg</image:loc>
+      <image:title>Skandagiri Sunrise Trek</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Ultimate-Guide-Kumara-Parvatha/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Kumara.jpg</image:loc>
+      <image:title>Kumara Parvatha Trek Landscape</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Gokarna-Beach-Trek-Itinerary-from-Bangalore/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Gokarna.jpg</image:loc>
+      <image:title>Om Beach Gokarna</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Top-Reasons-To-Visit-Wayanad-On-A-Weekend/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Wayanad.jpg</image:loc>
+      <image:title>Tea Estates Wayanad</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Best-Corporate-Team-Outing-Destinations-Near-Bangalore/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/corporate_hero.png</image:loc>
+      <image:title>Corporate Team Outing</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Skandagiri-Trek-Permit-Booking-Aranya-Vihara/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Skandagiri.jpg</image:loc>
+      <image:title>Skandagiri Trek Permit Booking Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Kudremukh-Trek-Permit-Booking-Aranya-Vihara/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Kuduremukha.jpg</image:loc>
+      <image:title>Kudremukh Trek Permit Booking Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Netravathi-Trek-Permit-Booking-Aranya-Vihara/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Netravathi.jpg</image:loc>
+      <image:title>Netravathi Trek Permit Booking Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Kumara-Parvatha-Trek-Permit-Booking-Aranya-Vihara/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Kumara.jpg</image:loc>
+      <image:title>Kumara Parvatha Trek Permit Booking Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Savandurga-Trek-Permit-Booking-Aranya-Vihara/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Savandurga.jpg</image:loc>
+      <image:title>Savandurga Trek Permit Booking Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Blog/Uttari-Betta-Trek-Permit-Booking-Aranya-Vihara/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://bengalurutrails.in/img/Uttaribetta.jpg</image:loc>
+      <image:title>Uttari Betta Trek Permit Booking Guide</image:title>
+    </image:image>
+  </url>
+
+  <!-- ====== LEGAL ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/Privacy/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Terms/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/Cancellation/</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- ====== AUTH ====== -->
+  <url>
+    <loc>https://bengalurutrails.in/login</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://bengalurutrails.in/signup</loc>
+    <lastmod>2025-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>
