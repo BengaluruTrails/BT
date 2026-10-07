@@ -395,18 +395,18 @@
             @supports (-webkit-touch-callout: none) {
                 @media (max-width: 768px) {
                     .header {
-                        padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 64px) !important;
+                        padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 59px) !important;
                     }
                     .header.scrolled {
-                        padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 58px) !important;
+                        padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 54px) !important;
                     }
                 }
             }
             .is-ios .header {
-                padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 64px) !important;
+                padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 59px) !important;
             }
             .is-ios .header.scrolled {
-                padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 58px) !important;
+                padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 54px) !important;
             }
 
             /* Small mobile screens (<= 360px) */
@@ -466,12 +466,12 @@
             @supports (-webkit-touch-callout: none) {
                 @media (max-width: 768px) {
                     body:not(.home-page) {
-                        padding-top: max(calc(95px + env(safe-area-inset-top, 0px)), 122px) !important;
+                        padding-top: max(calc(110px + env(safe-area-inset-top, 0px)), 140px) !important;
                     }
                 }
             }
             .is-ios body:not(.home-page) {
-                padding-top: max(calc(95px + env(safe-area-inset-top, 0px)), 122px) !important;
+                padding-top: max(calc(110px + env(safe-area-inset-top, 0px)), 140px) !important;
             }
 
             /* ── Mobile Menu Drawer iOS Support ── */
@@ -522,8 +522,9 @@
             }
         `;
         
-        // Add home-page class to body if we are on the homepage
-        if (window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
+        // Add home-page class to body if we are on the actual homepage only
+        const cleanPath = window.location.pathname.replace(/\/index\.html$/i, '/');
+        if (cleanPath === '/') {
             document.body.classList.add('home-page');
         }
         document.head.appendChild(s);
