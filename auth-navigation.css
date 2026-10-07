@@ -557,12 +557,16 @@ a {
 @media (max-width: 768px) {
   .header {
     padding: 0.5rem 0.65rem !important;
+    padding-top: calc(0.55rem + env(safe-area-inset-top, 0px)) !important;
+    padding-left: calc(0.65rem + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(0.65rem + env(safe-area-inset-right, 0px)) !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .header.scrolled {
-    padding: 0.4rem 0.65rem !important;
+    padding: 0.38rem 0.65rem !important;
+    padding-top: calc(0.42rem + env(safe-area-inset-top, 0px)) !important;
   }
 
   .header.scrolled .header-container {
@@ -580,22 +584,34 @@ a {
     align-items: center !important;
     overflow: visible !important;
     box-sizing: border-box !important;
-    border-radius: 40px !important;
+    border-radius: 50px !important;
     background: rgba(10, 18, 14, 0.92) !important;
-    border: 1px solid rgba(201, 168, 76, 0.25) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(201, 168, 76, 0.28) !important;
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(190%) !important;
+    backdrop-filter: blur(25px) saturate(190%) !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+  }
+
+  .logo-text-container {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) !important;
   }
 
   .logo-text-container .tagline {
-    font-size: 0.42rem !important;
-    letter-spacing: 1.6px !important;
+    font-size: 0.40rem !important;
+    letter-spacing: 1.4px !important;
+    line-height: 1.1 !important;
+    -webkit-font-smoothing: antialiased !important;
   }
 
   .logo-text-container h1 {
     font-family: 'Cinzel', 'Outfit', serif !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 0.06rem !important;
+    font-size: 0.80rem !important;
+    letter-spacing: 0.05rem !important;
+    line-height: 1.1 !important;
     flex-shrink: 1 !important;
+    -webkit-font-smoothing: antialiased !important;
   }
 
   #logo {
@@ -945,6 +961,30 @@ a {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+}
+
+/* ── Dynamic Island & Safe Area Precision on iPhone 14/15/16/17 & iOS Safari ── */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 768px) {
+    .header {
+      padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 64px) !important;
+    }
+    .header.scrolled {
+      padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 58px) !important;
+    }
+    body:not(.home-page) {
+      padding-top: max(calc(95px + env(safe-area-inset-top, 0px)), 122px) !important;
+    }
+  }
+}
+.is-ios .header {
+  padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 64px) !important;
+}
+.is-ios .header.scrolled {
+  padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 58px) !important;
+}
+.is-ios body:not(.home-page) {
+  padding-top: max(calc(95px + env(safe-area-inset-top, 0px)), 122px) !important;
 }
 
 @media (min-width: 769px) {

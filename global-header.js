@@ -4,7 +4,28 @@
  * Injects HTML, CSS, nav logic, auth status, hamburger menu.
  */
 (function () {
-    const V = '15';
+    const V = '17';
+
+    // ─── 0. iPhone & iOS Notch / Dynamic Island Viewport Support ───
+    try {
+        let vp = document.querySelector('meta[name="viewport"]');
+        if (vp) {
+            if (!vp.content.includes('viewport-fit')) {
+                vp.content = vp.content.replace(/,?\s*$/, '') + ', viewport-fit=cover';
+            }
+        } else {
+            vp = document.createElement('meta');
+            vp.name = 'viewport';
+            vp.content = 'width=device-width, initial-scale=1.0, viewport-fit=cover';
+            document.head.appendChild(vp);
+        }
+    } catch (e) {}
+
+    // Detect iOS / iPhone for precise Dynamic Island & notch metrics
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (isIOS) {
+        document.documentElement.classList.add('is-ios');
+    }
 
     // ─── 1. Inject Global CSS (with !important overrides) ───
     if (!document.getElementById('gh-css')) {
@@ -40,6 +61,9 @@
             /* ══════════════════════════════════════════════════════════
                GLOBAL HEADER CAPSULE — LUXURY FOREST GREEN & GOLD
                ══════════════════════════════════════════════════════════ */
+            html {
+                -webkit-text-size-adjust: 100% !important;
+            }
             .header {
                 position: fixed !important;
                 top: 0 !important;
@@ -48,6 +72,9 @@
                 width: 100% !important;
                 z-index: 7000 !important;
                 padding: 1.25rem 2rem !important;
+                padding-top: calc(1.25rem + env(safe-area-inset-top, 0px)) !important;
+                padding-left: calc(2rem + env(safe-area-inset-left, 0px)) !important;
+                padding-right: calc(2rem + env(safe-area-inset-right, 0px)) !important;
                 background: transparent !important;
                 border: none !important;
                 border-bottom: none !important;
@@ -105,6 +132,7 @@
                 gap: 2px !important;
                 margin-left: 0 !important;
                 min-width: 0 !important;
+                filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.55)) !important;
             }
 
             /* ── Catchy Premium Typography ── */
@@ -123,7 +151,6 @@
                 margin: 0 !important;
                 white-space: nowrap !important;
                 line-height: 1.08 !important;
-                filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 16px rgba(229, 185, 76, 0.3)) !important;
             }
             #global-header .logo-text-container h1 span,
             .header .logo-text-container h1 span {
@@ -207,58 +234,70 @@
 
             /* ══════════════════════════════════════════════════════════
                MOBILE RESPONSIVE — PRECISE CAPSULE & VISIBLE HAMBURGER
-               ══════════════════════════════════════════════════════════ */
+            ══════════════════════════════════════════════════════════ */
             @media (max-width: 768px) {
                 .header {
                     padding: 0.5rem 0.65rem !important;
+                    padding-top: calc(0.55rem + env(safe-area-inset-top, 0px)) !important;
+                    padding-left: calc(0.65rem + env(safe-area-inset-left, 0px)) !important;
+                    padding-right: calc(0.65rem + env(safe-area-inset-right, 0px)) !important;
                     width: 100% !important;
                     box-sizing: border-box !important;
                 }
                 .header.scrolled {
-                    padding: 0.4rem 0.65rem !important;
+                    padding: 0.38rem 0.65rem !important;
+                    padding-top: calc(0.42rem + env(safe-area-inset-top, 0px)) !important;
                 }
+
                 .header-container {
                     width: 100% !important;
                     max-width: 100% !important;
                     margin: 0 auto !important;
                     padding: 0.38rem 0.75rem !important;
                     gap: 0.4rem !important;
-                    border-radius: 40px !important;
+                    border-radius: 50px !important;
                     box-sizing: border-box !important;
                     overflow: visible !important;
                     background: rgba(10, 18, 14, 0.92) !important;
-                    border: 1px solid rgba(201, 168, 76, 0.25) !important;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+                    border: 1px solid rgba(201, 168, 76, 0.28) !important;
+                    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
                     display: flex !important;
                     align-items: center !important;
                     justify-content: space-between !important;
+                    -webkit-backdrop-filter: blur(25px) saturate(190%) !important;
+                    backdrop-filter: blur(25px) saturate(190%) !important;
+                    transform: translateZ(0) !important;
+                    -webkit-transform: translateZ(0) !important;
                 }
                 .logo-link {
                     gap: 0.45rem !important;
                     flex-shrink: 1 !important;
                     min-width: 0 !important;
+                    -webkit-tap-highlight-color: transparent !important;
                 }
                 #logo {
-                    width: 33px !important;
-                    height: 33px !important;
-                    min-width: 33px !important;
-                    min-height: 33px !important;
+                    width: 32px !important;
+                    height: 32px !important;
+                    min-width: 32px !important;
+                    min-height: 32px !important;
                     flex-shrink: 0 !important;
                 }
                 .logo-text-container {
                     min-width: 0 !important;
+                    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) !important;
                 }
                 #global-header .logo-text-container h1,
                 .header .logo-text-container h1 {
-                    font-size: 0.82rem !important;
-                    letter-spacing: 0.06rem !important;
+                    font-size: 0.80rem !important;
+                    letter-spacing: 0.05rem !important;
                     line-height: 1.1 !important;
-                    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5)) !important;
+                    -webkit-font-smoothing: antialiased !important;
                 }
                 .logo-text-container .tagline {
-                    font-size: 0.42rem !important;
-                    letter-spacing: 1.6px !important;
+                    font-size: 0.40rem !important;
+                    letter-spacing: 1.4px !important;
                     line-height: 1.1 !important;
+                    -webkit-font-smoothing: antialiased !important;
                 }
                 .auth-nav-items {
                     gap: 0.4rem !important;
@@ -267,10 +306,14 @@
                     align-items: center !important;
                 }
                 .auth-link {
-                    padding: 0.32rem 0.62rem !important;
-                    font-size: 0.66rem !important;
+                    padding: 0.32rem 0.65rem !important;
+                    font-size: 0.65rem !important;
                     letter-spacing: 0.04rem !important;
                     flex-shrink: 0 !important;
+                    -webkit-appearance: none !important;
+                    appearance: none !important;
+                    -webkit-tap-highlight-color: transparent !important;
+                    touch-action: manipulation !important;
                 }
                 .user-greeting {
                     display: none !important;
@@ -290,23 +333,29 @@
                     min-width: 36px !important;
                     min-height: 36px !important;
                     padding: 0 !important;
-                    background: rgba(201, 168, 76, 0.12) !important;
-                    border: 1px solid rgba(201, 168, 76, 0.35) !important;
+                    background: rgba(201, 168, 76, 0.14) !important;
+                    border: 1px solid rgba(201, 168, 76, 0.38) !important;
                     border-radius: 50% !important;
                     cursor: pointer !important;
-                    gap: 4px !important;
+                    gap: 3.5px !important;
                     flex-shrink: 0 !important;
                     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
                     outline: none !important;
                     position: relative !important;
                     z-index: 7500 !important;
                     margin: 0 !important;
+                    -webkit-appearance: none !important;
+                    appearance: none !important;
+                    -webkit-tap-highlight-color: transparent !important;
+                    touch-action: manipulation !important;
+                    user-select: none !important;
+                    -webkit-user-select: none !important;
                 }
                 .hamburger:hover,
                 .hamburger:active {
-                    background: rgba(201, 168, 76, 0.25) !important;
-                    border-color: rgba(201, 168, 76, 0.7) !important;
+                    background: rgba(201, 168, 76, 0.28) !important;
+                    border-color: rgba(201, 168, 76, 0.8) !important;
                     transform: scale(1.05) !important;
                 }
                 .hamburger span {
@@ -318,17 +367,18 @@
                     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
                     transform-origin: center !important;
                     box-shadow: 0 0 6px rgba(201, 168, 76, 0.4) !important;
+                    pointer-events: none !important;
                 }
                 .hamburger span:nth-child(2) {
                     width: 12px !important;
                 }
                 .hamburger.active {
-                    background: rgba(201, 168, 76, 0.25) !important;
+                    background: rgba(201, 168, 76, 0.3) !important;
                     border-color: #f0d86e !important;
                 }
                 .hamburger.active span:nth-child(1) {
                     width: 17px !important;
-                    transform: translateY(6px) rotate(45deg) !important;
+                    transform: translateY(5.5px) rotate(45deg) !important;
                 }
                 .hamburger.active span:nth-child(2) {
                     opacity: 0 !important;
@@ -336,24 +386,43 @@
                 }
                 .hamburger.active span:nth-child(3) {
                     width: 17px !important;
-                    transform: translateY(-6px) rotate(-45deg) !important;
+                    transform: translateY(-5.5px) rotate(-45deg) !important;
                 }
+            }
+
+            /* ── Dynamic Island & Safe Area Precision on iPhone 14/15/16/17 & iOS Safari ── */
+            @supports (-webkit-touch-callout: none) {
+                @media (max-width: 768px) {
+                    .header {
+                        padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 64px) !important;
+                    }
+                    .header.scrolled {
+                        padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 58px) !important;
+                    }
+                }
+            }
+            .is-ios .header {
+                padding-top: max(calc(0.5rem + env(safe-area-inset-top, 0px)), 64px) !important;
+            }
+            .is-ios .header.scrolled {
+                padding-top: max(calc(0.38rem + env(safe-area-inset-top, 0px)), 58px) !important;
             }
 
             /* Small mobile screens (<= 360px) */
             @media (max-width: 360px) {
                 .header {
                     padding: 0.4rem 0.4rem !important;
+                    padding-top: calc(0.45rem + env(safe-area-inset-top, 0px)) !important;
                 }
                 .header-container {
-                    padding: 0.3rem 0.5rem !important;
+                    padding: 0.32rem 0.55rem !important;
                     gap: 0.3rem !important;
                 }
                 #logo {
-                    width: 29px !important;
-                    height: 29px !important;
-                    min-width: 29px !important;
-                    min-height: 29px !important;
+                    width: 28px !important;
+                    height: 28px !important;
+                    min-width: 28px !important;
+                    min-height: 28px !important;
                 }
                 #global-header .logo-text-container h1,
                 .header .logo-text-container h1 {
@@ -361,18 +430,18 @@
                     letter-spacing: 0.04rem !important;
                 }
                 .logo-text-container .tagline {
-                    font-size: 0.38rem !important;
-                    letter-spacing: 1.2px !important;
+                    font-size: 0.36rem !important;
+                    letter-spacing: 1.1px !important;
                 }
                 .auth-link {
-                    padding: 0.28rem 0.48rem !important;
+                    padding: 0.28rem 0.5rem !important;
                     font-size: 0.62rem !important;
                 }
                 .hamburger {
-                    width: 32px !important;
-                    height: 32px !important;
-                    min-width: 32px !important;
-                    min-height: 32px !important;
+                    width: 33px !important;
+                    height: 33px !important;
+                    min-width: 33px !important;
+                    min-height: 33px !important;
                     gap: 3px !important;
                 }
                 .hamburger span {
@@ -383,17 +452,27 @@
                 }
             }
 
-            /* Fix for content underlapping fixed header */
+            /* Content padding below fixed header */
             body:not(.home-page) {
-                padding-top: 100px !important;
+                padding-top: calc(100px + env(safe-area-inset-top, 0px)) !important;
             }
             @media (max-width: 768px) {
                 body:not(.home-page) {
-                    padding-top: 80px !important;
+                    padding-top: calc(85px + env(safe-area-inset-top, 0px)) !important;
                 }
             }
+            @supports (-webkit-touch-callout: none) {
+                @media (max-width: 768px) {
+                    body:not(.home-page) {
+                        padding-top: max(calc(95px + env(safe-area-inset-top, 0px)), 122px) !important;
+                    }
+                }
+            }
+            .is-ios body:not(.home-page) {
+                padding-top: max(calc(95px + env(safe-area-inset-top, 0px)), 122px) !important;
+            }
 
-            /* ── Mobile Menu Overlay & Drawer Safety ── */
+            /* ── Mobile Menu Drawer iOS Support ── */
             .mobile-menu-overlay {
                 position: fixed !important;
                 top: 0 !important;
@@ -418,10 +497,10 @@
                 right: 0 !important;
                 height: 100vh !important;
                 height: 100dvh !important;
-                width: 290px !important;
-                max-width: 85vw !important;
+                width: 295px !important;
+                max-width: 86vw !important;
                 background: linear-gradient(165deg, #0a120e 0%, #0f1d16 45%, #162a1f 100%) !important;
-                border-left: 1px solid rgba(201, 168, 76, 0.2) !important;
+                border-left: 1px solid rgba(201, 168, 76, 0.22) !important;
                 box-shadow: -10px 0 40px rgba(0, 0, 0, 0.85) !important;
                 transform: translateX(100%) !important;
                 transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -429,8 +508,11 @@
                 display: flex !important;
                 flex-direction: column !important;
                 overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
                 visibility: hidden !important;
                 box-sizing: border-box !important;
+                padding-top: max(1.2rem, env(safe-area-inset-top, 0px)) !important;
+                padding-bottom: max(1.8rem, env(safe-area-inset-bottom, 0px)) !important;
             }
             .nav-menu-mobile.active {
                 transform: translateX(0) !important;
