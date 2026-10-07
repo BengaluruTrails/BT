@@ -309,7 +309,10 @@
           document.getElementById('signup-form').style.display = 'none';
           document.getElementById('footer-link-auth').style.display = 'none';
           document.getElementById('otp-container').style.display = 'block';
-          window.pendingEmail = email;
+          window.pendingEmail = email.trim();
+          window.pendingMobile = mobile.trim();
+          sessionStorage.setItem('pendingEmail', email.trim());
+          sessionStorage.setItem('pendingMobile', mobile.trim());
         } else {
           // If the response is not OK
           if (!isJson) {
@@ -328,24 +331,33 @@
     async function resendOtp() {
       if (resendTimer > 0) return;
 
-      const email = window.pendingEmail;
-      if (!email) {
-        alert('Email not found. Please try to sign up again.');
+      const email = (window.pendingEmail || sessionStorage.getItem('pendingEmail') || '').trim();
+      const mobile = (window.pendingMobile || sessionStorage.getItem('pendingMobile') || '').trim();
+      if (!email && !mobile) {
+        alert('Registration session expired. Please fill out the signup form again.');
         return;
       }
 
-      const response = await fetch('/api/resend-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
+      try {
+        const response = await fetch('/api/resend-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, mobile })
+        });
 
-      if (response.ok) {
-        alert('A new OTP has been sent to your email and mobile.');
-        startResendTimer(60);
-      } else {
-        const errorText = await response.text();
-        alert('Failed to resend OTP: ' + errorText);
+        const contentType = response.headers.get("content-type");
+        const isJson = contentType && contentType.includes("application/json");
+        const data = isJson ? await response.json() : null;
+
+        if (response.ok) {
+          alert('A new OTP has been generated and sent!');
+          startResendTimer(60);
+        } else {
+          const errMsg = (data && data.message) ? data.message : (await response.text());
+          alert('Failed to resend OTP: ' + errMsg);
+        }
+      } catch (err) {
+        alert('Failed to connect to server. Please try again.');
       }
     }
 
@@ -371,21 +383,33 @@
 
     document.getElementById('otp-form').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const otp = document.getElementById('otp').value;
-      const email = window.pendingEmail;
+      const otp = document.getElementById('otp').value.trim();
+      const email = (window.pendingEmail || sessionStorage.getItem('pendingEmail') || '').trim();
+      const mobile = (window.pendingMobile || sessionStorage.getItem('pendingMobile') || '').trim();
 
-      const response = await fetch('/api/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp })
-      });
+      try {
+        const response = await fetch('/api/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp, mobile })
+        });
 
-      if (response.ok) {
-        alert('Number/Email Verified successfully! You can now log in.');
-        window.location.href = '/login.html';
-      } else {
-        const errorText = await response.text();
-        alert('Error: ' + errorText);
+        const contentType = response.headers.get("content-type");
+        const isJson = contentType && contentType.includes("application/json");
+        const data = isJson ? await response.json() : null;
+
+        if (response.ok) {
+          alert('Account verified successfully! You can now log in.');
+          sessionStorage.removeItem('pendingEmail');
+          sessionStorage.removeItem('pendingMobile');
+          window.location.href = '/login.html';
+        } else {
+          const errMsg = (data && data.message) ? data.message : (await response.text());
+          alert('Error: ' + errMsg);
+        }
+      } catch (err) {
+        console.error('Verify fetch error:', err);
+        alert('Could not connect to the server. Please check your connection and try again.');
       }
     });
   </script></body>

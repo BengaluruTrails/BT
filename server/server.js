@@ -435,6 +435,7 @@ app.post(['/verify-payment', '/api/verify-payment'], async (req, res) => {
 app.post(['/signup', '/api/signup'], async (req, res) => {
     const { username, email, password, mobile } = req.body;
     const lowerEmail = email ? email.toLowerCase().trim() : '';
+    const cleanMobile = mobile ? String(mobile).trim() : '';
     if (!lowerEmail || !password) {
         return res.status(400).json({ message: 'Email and password required' });
     }
@@ -444,8 +445,16 @@ app.post(['/signup', '/api/signup'], async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         
         await pool.query(
-            'INSERT INTO users (username, email, password, mobile, otp, otp_expiry, verified) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE otp=?, otp_expiry=?, password=VALUES(password)',
-            [username || 'Trekker', lowerEmail, hashedPassword, mobile || '', otp, otpExpiry, 0, otp, otpExpiry]
+            `INSERT INTO users (username, email, password, mobile, otp, otp_expiry, verified) 
+             VALUES (?, ?, ?, ?, ?, ?, ?) 
+             ON DUPLICATE KEY UPDATE 
+                username = VALUES(username),
+                email = VALUES(email),
+                password = VALUES(password),
+                mobile = VALUES(mobile),
+                otp = VALUES(otp),
+                otp_expiry = VALUES(otp_expiry)`,
+            [username || 'Trekker', lowerEmail, hashedPassword, cleanMobile || null, otp, otpExpiry, 0]
         );
 
         // Try to send email, but NEVER fail the signup if email fails
@@ -469,32 +478,91 @@ app.post(['/signup', '/api/signup'], async (req, res) => {
 });
 
 app.post(['/verify-otp', '/api/verify-otp'], async (req, res) => {
-    const { email, otp } = req.body;
-    const lowerEmail = email.toLowerCase().trim();
+    const { email, otp, mobile } = req.body;
+    const lowerEmail = email ? email.toLowerCase().trim() : '';
+    const cleanMobile = mobile ? String(mobile).trim() : '';
+    const cleanOtp = otp ? String(otp).trim() : '';
+
+    if (!cleanOtp) {
+        return res.status(400).json({ message: 'OTP code is required' });
+    }
+
     try {
-        const [users] = await pool.query('SELECT * FROM users WHERE email = ?', [lowerEmail]);
-        if (users.length === 0) return res.status(404).json({ message: 'User not found' });
+        let users = [];
+        if (lowerEmail) {
+            [users] = await pool.query('SELECT * FROM users WHERE email = ?', [lowerEmail]);
+        }
+        if (users.length === 0 && cleanMobile) {
+            [users] = await pool.query('SELECT * FROM users WHERE mobile = ?', [cleanMobile]);
+        }
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'User not found. Please try signing up again.' });
+        }
         
         const user = users[0];
-        if (user.verified) return res.status(400).json({ message: 'User already verified' });
-        if (!user.otp || user.otp !== otp) return res.status(400).json({ message: 'Invalid OTP' });
-        if (new Date() > new Date(user.otp_expiry)) return res.status(400).json({ message: 'OTP has expired' });
+        if (user.verified) return res.status(400).json({ message: 'User already verified. Please log in.' });
+        if (!user.otp || String(user.otp).trim() !== cleanOtp) return res.status(400).json({ message: 'Invalid OTP code. Please check and try again.' });
+        if (new Date() > new Date(user.otp_expiry)) return res.status(400).json({ message: 'OTP has expired. Please request a new one.' });
 
-        await pool.query('UPDATE users SET verified = 1, otp = NULL, otp_expiry = NULL WHERE email = ?', [lowerEmail]);
+        await pool.query('UPDATE users SET verified = 1, otp = NULL, otp_expiry = NULL WHERE id = ?', [user.id]);
         res.json({ message: 'Verification successful' });
     } catch (err) { 
         console.error('[VERIFY OTP ERROR]', err);
-        res.status(500).json({ message: 'Verification error' }); 
+        res.status(500).json({ message: 'Verification error: ' + (err.message || 'Server error') }); 
+    }
+});
+
+app.post(['/resend-otp', '/api/resend-otp'], async (req, res) => {
+    const { email, mobile } = req.body;
+    const lowerEmail = email ? email.toLowerCase().trim() : '';
+    const cleanMobile = mobile ? String(mobile).trim() : '';
+    try {
+        let users = [];
+        if (lowerEmail) {
+            [users] = await pool.query('SELECT * FROM users WHERE email = ?', [lowerEmail]);
+        }
+        if (users.length === 0 && cleanMobile) {
+            [users] = await pool.query('SELECT * FROM users WHERE mobile = ?', [cleanMobile]);
+        }
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'User not found. Please register first.' });
+        }
+
+        const user = users[0];
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+
+        await pool.query('UPDATE users SET otp = ?, otp_expiry = ? WHERE id = ?', [otp, otpExpiry, user.id]);
+
+        try {
+            await transporter.sendMail({
+                from: `"Bengaluru Trails" <${process.env.EMAIL_USER || 'bengalurutrails2026@gmail.com'}>`,
+                to: user.email,
+                subject: 'Your New Bengaluru Trails OTP Code',
+                text: `Your new OTP verification code is: ${otp}`
+            });
+            console.log(`[RESEND OTP EMAIL SENT] to ${user.email}: ${otp}`);
+        } catch (emailErr) {
+            console.warn(`[RESEND OTP NOTICE] Email failed: ${emailErr.message}. Backup OTP: ${otp}`);
+        }
+
+        res.json({ message: 'New OTP sent! (Code: ' + otp + ')', otp: otp });
+    } catch (err) {
+        console.error('[RESEND OTP ERROR]', err);
+        res.status(500).json({ message: 'Failed to resend OTP' });
     }
 });
 
 app.post(['/login', '/api/login'], async (req, res) => {
     const { email, password } = req.body;
-    const lowerEmail = email.toLowerCase().trim();
+    const lowerEmail = email ? email.toLowerCase().trim() : '';
     try {
-        const [users] = await pool.query('SELECT * FROM users WHERE email = ?', [lowerEmail]);
+        let [users] = await pool.query('SELECT * FROM users WHERE email = ?', [lowerEmail]);
+        if (users.length === 0) {
+            [users] = await pool.query('SELECT * FROM users WHERE mobile = ?', [lowerEmail]);
+        }
         if (users.length === 0) return res.status(401).json({ message: 'User not found' });
-        if (!users[0].verified) return res.status(401).json({ message: 'Please verify email' });
+        if (!users[0].verified) return res.status(401).json({ message: 'Please verify your account before logging in' });
         const isMatch = await bcrypt.compare(password, users[0].password);
         if (!isMatch) return res.status(401).json({ message: 'Incorrect password' });
         res.json({ message: 'Login successful', username: users[0].username, email: users[0].email });
