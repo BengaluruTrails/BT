@@ -104,15 +104,15 @@ body {
 }
 
 .logo-text-container h1 {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: 0.02rem;
+  letter-spacing: 0.10rem;
   text-transform: uppercase;
   color: #fff;
   margin: 0;
   white-space: nowrap;
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .logo-text-container .tagline {
@@ -606,9 +606,9 @@ a {
   }
 
   .logo-text-container h1 {
-    font-family: 'Cinzel', 'Outfit', serif !important;
-    font-size: 0.80rem !important;
-    letter-spacing: 0.05rem !important;
+    font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.06rem !important;
     line-height: 1.1 !important;
     flex-shrink: 1 !important;
     -webkit-font-smoothing: antialiased !important;

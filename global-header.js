@@ -4,7 +4,7 @@
  * Injects HTML, CSS, nav logic, auth status, hamburger menu.
  */
 (function () {
-    const V = '17';
+    const V = '18';
 
     // ─── 0. iPhone & iOS Notch / Dynamic Island Viewport Support ───
     try {
@@ -36,11 +36,11 @@
         document.head.appendChild(link);
     }
 
-    // Inject Google Fonts (Cinzel for luxury catchy brand, Outfit & Plus Jakarta Sans, Inter)
-    if (!document.querySelector('link[href*="family=Cinzel"]')) {
+    // Inject Google Fonts (Outfit & Montserrat for luxury modern geometric brand, Plus Jakarta Sans, Inter)
+    if (!document.querySelector('link[href*="family=Montserrat"]')) {
         const f = document.createElement('link');
         f.rel = 'stylesheet';
-        f.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap';
+        f.href = 'https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap';
         document.head.appendChild(f);
     }
 
@@ -135,13 +135,13 @@
                 filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.55)) !important;
             }
 
-            /* ── Catchy Premium Typography ── */
+            /* ── Modern Luxury Geometric Sans Typography (Outfit / Montserrat) ── */
             #global-header .logo-text-container h1,
             .header .logo-text-container h1 {
-                font-family: 'Cinzel', 'Outfit', serif !important;
+                font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
                 font-size: 1.25rem !important;
                 font-weight: 800 !important;
-                letter-spacing: 0.12rem !important;
+                letter-spacing: 0.10rem !important;
                 text-transform: uppercase !important;
                 background: linear-gradient(135deg, #ffffff 0%, #fae69e 35%, #e5b94c 75%, #c99834 100%) !important;
                 -webkit-background-clip: text !important;
@@ -154,14 +154,14 @@
             }
             #global-header .logo-text-container h1 span,
             .header .logo-text-container h1 span {
-                font-family: 'Cinzel', 'Outfit', serif !important;
+                font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
                 background: linear-gradient(135deg, #ffe58f 0%, #f0c345 50%, #c48a12 100%) !important;
                 -webkit-background-clip: text !important;
                 background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
                 color: transparent !important;
                 font-weight: 900 !important;
-                letter-spacing: 0.14rem !important;
+                letter-spacing: 0.12rem !important;
             }
             .logo-text-container .tagline {
                 font-family: 'Outfit', 'Inter', sans-serif !important;
@@ -288,8 +288,9 @@
                 }
                 #global-header .logo-text-container h1,
                 .header .logo-text-container h1 {
-                    font-size: 0.80rem !important;
-                    letter-spacing: 0.05rem !important;
+                    font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                    font-size: 0.82rem !important;
+                    letter-spacing: 0.06rem !important;
                     line-height: 1.1 !important;
                     -webkit-font-smoothing: antialiased !important;
                 }
@@ -426,7 +427,8 @@
                 }
                 #global-header .logo-text-container h1,
                 .header .logo-text-container h1 {
-                    font-size: 0.72rem !important;
+                    font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                    font-size: 0.74rem !important;
                     letter-spacing: 0.04rem !important;
                 }
                 .logo-text-container .tagline {
