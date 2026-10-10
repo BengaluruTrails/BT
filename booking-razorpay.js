@@ -155,7 +155,26 @@ const BookingEngine = (() => {
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     const icons = { success: '✓', error: '✕', info: 'ℹ' };
-    toast.innerHTML = `<span>${icons[type] || 'ℹ'}</span><span>${msg}</span>`;
+    
+    // Sanitize message: if HTML is received (e.g. Nginx error page), extract clean text
+    let cleanMsg = msg;
+    if (typeof msg === 'string' && (msg.includes('<html') || msg.includes('<!DOCTYPE') || msg.includes('<center>') || msg.includes('<h1>'))) {
+      if (msg.includes('502 Bad Gateway')) {
+        cleanMsg = 'Server temporarily unavailable (502 Bad Gateway). Please try again shortly.';
+      } else if (msg.includes('504 Gateway Time-out')) {
+        cleanMsg = 'Server request timed out (504). Please try again shortly.';
+      } else {
+        const doc = new DOMParser().parseFromString(msg, 'text/html');
+        cleanMsg = (doc.body.textContent || '').trim().replace(/\s+/g, ' ') || 'An unexpected error occurred';
+      }
+    }
+
+    const iconSpan = document.createElement('span');
+    iconSpan.textContent = icons[type] || 'ℹ';
+    const textSpan = document.createElement('span');
+    textSpan.textContent = cleanMsg;
+    toast.appendChild(iconSpan);
+    toast.appendChild(textSpan);
     container.appendChild(toast);
     setTimeout(() => {
       toast.style.opacity = '0';
@@ -295,8 +314,21 @@ const BookingEngine = (() => {
       });
 
       if (!orderRes.ok) {
-        const errText = await orderRes.text();
-        throw new Error(errText || 'Failed to create payment order');
+        let errMessage = 'Failed to create payment order. Please try again.';
+        try {
+          const errText = await orderRes.text();
+          if (errText && !errText.includes('<html') && !errText.includes('<!DOCTYPE')) {
+            try {
+              const parsed = JSON.parse(errText);
+              errMessage = parsed.message || parsed.error || errText;
+            } catch (_) {
+              errMessage = errText;
+            }
+          } else if (orderRes.status === 502 || orderRes.status === 504) {
+            errMessage = 'Server temporarily unavailable (502 Bad Gateway). Please try again in a few moments.';
+          }
+        } catch (_) {}
+        throw new Error(errMessage);
       }
 
       const orderData = await orderRes.json();
